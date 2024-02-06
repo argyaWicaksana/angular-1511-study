@@ -1,0 +1,14 @@
+<app-alert *ngIf="showAlert" [alert]="alert"></app-alert>
+<div class="d-flex justify-content-center">
+    <form [formGroup]="loginFg" (ngSubmit)="onSubmit()" class="border border-2 p-5 rounded">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" formControlName="username" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" required />
+        </div>
+        <button type="submit" class="btn btn-outline-dark w-100">Submit</button>
+    </form>
+</div>
