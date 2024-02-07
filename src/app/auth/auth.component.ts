@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Alert {
   type: string;
@@ -16,7 +17,7 @@ export class AuthComponent {
   loginFg!: FormGroup;
   showAlert:boolean = false;
   alert!: Alert;
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.loginFg = this.fb.group({
@@ -30,6 +31,7 @@ export class AuthComponent {
       this.http.post('http://localhost:3000/auth/login', this.loginFg.value).subscribe((response: any) => {
         localStorage.setItem('accessToken', response.accessToken);
         window.location.href = "http://localhost:4200/dashboard";
+        this.router.navigate(['dashboard']);
         // let token = localStorage.getItem('accessToken');
         // console.log(token)
       }, (error: any) => {

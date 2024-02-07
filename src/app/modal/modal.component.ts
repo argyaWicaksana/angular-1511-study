@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Host, inject, TemplateRef, ViewChild } fr
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-modal',
@@ -10,9 +11,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ModalComponent {
   userFg!: FormGroup;
+  parent: DashboardComponent;
   private modalService = inject(NgbModal);
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private chRef: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, private http: HttpClient, @Host() parent: DashboardComponent) {
+    this.parent = parent;
+  }
 
   ngOnInit(): void {
     this.userFg = this.fb.group({
@@ -29,17 +33,7 @@ export class ModalComponent {
 
   onSubmit() {
     if (this.userFg.valid) {
-      console.log(this.userFg.value);
-      this.http.post('http://localhost:3000/user', this.userFg.value).subscribe((response: any) => {
-        console.log(response);
-        this.chRef.detectChanges();
-        
-        // let token = localStorage.getItem('accessToken');
-        // console.log(token)
-      }, (error: any) => {
-        // console.log(error);
-        console.log(error.error.message);
-      })
+      this.parent.addUser(this.userFg.value);
     }
   }
 

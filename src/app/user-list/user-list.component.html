@@ -1,0 +1,30 @@
+<ng-container *ngIf="formMode; else showMode">
+    <td>{{ index }}</td>
+    <td>
+        <input type="text" value="{{ user.username }}" [(ngModel)]="user.username">
+    </td>
+    <td>
+        <input type="email" value="{{ user.email }}" [(ngModel)]="user.email">
+    </td>
+    <td>
+        <select class="form-select" id="role" [(ngModel)]="user.role">
+            <option value="user" [selected]="user.role === 'user'">User</option>
+            <option value="admin" [selected]="user.role === 'admin'">Admin</option>
+        </select>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary me-3" (click)="edit()">Save</button>
+        <button type="button" class="btn btn-outline-primary" (click)="toggleFormMode()">Cancel</button>
+    </td>
+</ng-container>
+
+<ng-template #showMode>
+    <td>{{ index }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
+    <td>
+        <button type="button" class="btn btn-primary me-3" (click)="toggleFormMode()">Edit</button>
+        <button type="button" class="btn btn-danger" (click)="parent.deleteUser(user.id)">Delete</button>
+    </td>
+</ng-template>

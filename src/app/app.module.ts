@@ -10,6 +10,7 @@ import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
 import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './alert/alert.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AlertComponent } from './alert/alert.component';
     ModalComponent,
     AuthComponent,
     AlertComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

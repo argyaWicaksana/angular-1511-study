@@ -3,6 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  password?: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,15 +19,31 @@ import { ModalComponent } from '../modal/modal.component';
 
 export class DashboardComponent implements OnInit {
   users: any;
-  private modalService = inject(NgbModal);
-  @ViewChild(ModalComponent) modalComp!: ModalComponent;
 
   constructor(private http: HttpClient) {
     this.users = [];
   }
 
+  addUser(user: Omit<User, 'id'>) {
+    this.http.post('http://localhost:3000/user', user).subscribe((_) => {
+      this.ngOnInit();
+
+      // let token = localStorage.getItem('accessToken');
+      // console.log(token)
+    }, (error: any) => {
+      // console.log(error)
+      console.log(error.error.message);
+    })
+  }
+
   deleteUser(id: number) {
     this.http.delete(`http://localhost:3000/user/${id}`).subscribe((_) => {
+      this.ngOnInit();
+    })
+  }
+
+  editUser(user: User) {
+    this.http.put(`http://localhost:3000/user/${user.id}`, user).subscribe((_) => {
       this.ngOnInit();
     })
   }
@@ -30,10 +54,6 @@ export class DashboardComponent implements OnInit {
     }, (error: any) => {
       console.log(error);
     })
-  }
-
-  openModal() {
-    this.modalService.open(this.modalComp);
   }
 
 }
