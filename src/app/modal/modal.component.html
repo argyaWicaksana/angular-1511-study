@@ -3,36 +3,32 @@
         <h4 class="modal-title" id="modal-basic-title">Form User</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="modal-body">
-        <form>
+    <form [formGroup]="userFg" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" />
+                <input type="text" class="form-control" id="username" formControlName="username" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" formControlName="email" />
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" />
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" />
+                <input type="password" class="form-control" id="password" formControlName="password" />
             </div>
             <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
-                <select class="form-select" id="role">
-                    <option selected value="user">User</option>
+                <select class="form-select" id="role" formControlName="role">
+                    <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        </div>
+    </form>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<button type="button" class="btn btn-success px-5" (click)="open(content)">Create</button>

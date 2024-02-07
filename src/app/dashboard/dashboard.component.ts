@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-interface User {
-  username: string;
-  email: string;
-  role?: string;
-  password?: string;
-}
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,22 +11,29 @@ interface User {
 
 export class DashboardComponent implements OnInit {
   users: any;
-  // body: User = {
-  //   username: 'IlhamGod',
-  //   email: 'ilham@gmail.com',
-  //   password: 'password',
-  // }
+  private modalService = inject(NgbModal);
+  @ViewChild(ModalComponent) modalComp!: ModalComponent;
+
   constructor(private http: HttpClient) {
     this.users = [];
+  }
+
+  deleteUser(id: number) {
+    this.http.delete(`http://localhost:3000/user/${id}`).subscribe((_) => {
+      this.ngOnInit();
+    })
   }
 
   ngOnInit(): void {
     this.http.get('http://localhost:3000/user').subscribe(response => {
       this.users = response;
-      // console.log(response);
     }, (error: any) => {
       console.log(error);
     })
+  }
+
+  openModal() {
+    this.modalService.open(this.modalComp);
   }
 
 }
