@@ -11,6 +11,7 @@ import { ModalComponent } from './modal/modal.component';
 import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './alert/alert.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,21 @@ import { UserListComponent } from './user-list/user-list.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:3000"],
+      }
+    }),
     NgbModule,
     NgbAlertModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+
+export function tokenGetter() {
+  return localStorage.getItem("accessToken");
+}

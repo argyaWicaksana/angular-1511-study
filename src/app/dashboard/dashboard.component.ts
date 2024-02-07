@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from '../modal/modal.component';
 
 interface User {
   id: number;
@@ -27,9 +25,6 @@ export class DashboardComponent implements OnInit {
   addUser(user: Omit<User, 'id'>) {
     this.http.post('http://localhost:3000/user', user).subscribe((_) => {
       this.ngOnInit();
-
-      // let token = localStorage.getItem('accessToken');
-      // console.log(token)
     }, (error: any) => {
       // console.log(error)
       console.log(error.error.message);

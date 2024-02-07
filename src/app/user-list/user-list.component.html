@@ -1,5 +1,5 @@
 <ng-container *ngIf="formMode; else showMode">
-    <td>{{ index }}</td>
+    <td>{{ index+1 }}</td>
     <td>
         <input type="text" value="{{ user.username }}" [(ngModel)]="user.username">
     </td>
@@ -19,7 +19,7 @@
 </ng-container>
 
 <ng-template #showMode>
-    <td>{{ index }}</td>
+    <td>{{ index+1 }}</td>
     <td>{{ user.username }}</td>
     <td>{{ user.email }}</td>
     <td>{{ user.role }}</td>
