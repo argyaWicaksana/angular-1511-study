@@ -26,8 +26,7 @@ export class DashboardComponent implements OnInit {
     this.http.post('http://localhost:3000/user', user).subscribe((_) => {
       this.ngOnInit();
     }, (error: any) => {
-      // console.log(error)
-      console.log(error.error.message);
+      console.log(error)
     })
   }
 

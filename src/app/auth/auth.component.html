@@ -1,6 +1,6 @@
 <app-alert *ngIf="showAlert" [alert]="alert"></app-alert>
 <div class="d-flex justify-content-center">
-    <form [formGroup]="loginFg" (ngSubmit)="onSubmit()" class="border border-2 p-5 rounded">
+    <form [formGroup]="loginFg" (ngSubmit)="onSubmit()" class="border p-5 rounded shadow-sm">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" formControlName="username" required />

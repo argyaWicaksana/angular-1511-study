@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, Host, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Host, inject, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
@@ -14,7 +13,7 @@ export class ModalComponent {
   parent: DashboardComponent;
   private modalService = inject(NgbModal);
 
-  constructor(private fb: FormBuilder, private http: HttpClient, @Host() parent: DashboardComponent) {
+  constructor(private fb: FormBuilder, @Host() parent: DashboardComponent) {
     this.parent = parent;
   }
 
@@ -37,4 +36,7 @@ export class ModalComponent {
     }
   }
 
+  showErrorCss(field: string) {
+    return (this.userFg.get(field)?.invalid && (this.userFg.get(field)?.touched || this.userFg.get(field)?.dirty) ) ? 'is-invalid' : '';
+  }
 }
