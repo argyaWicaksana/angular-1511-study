@@ -2,6 +2,7 @@ import { Component, Host, inject, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-modal',
@@ -13,7 +14,7 @@ export class ModalComponent {
   parent: DashboardComponent;
   private modalService = inject(NgbModal);
 
-  constructor(private fb: FormBuilder, @Host() parent: DashboardComponent) {
+  constructor(private fb: FormBuilder, @Host() parent: DashboardComponent, private userService: UserService) {
     this.parent = parent;
   }
 
@@ -32,7 +33,9 @@ export class ModalComponent {
 
   onSubmit() {
     if (this.userFg.valid) {
-      this.parent.addUser(this.userFg.value);
+      this.userService.addUser(this.userFg.value).subscribe(() => {
+        this.parent.getUsers();
+      });
     }
   }
 

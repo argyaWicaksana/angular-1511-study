@@ -1,11 +1,7 @@
-import { Component, ElementRef, Host, Injectable, Input, ViewChild } from '@angular/core';
+import { Component, Host, Input } from '@angular/core';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  role: string;
-}
+import { UserService } from '../services/user.service';
+import { User } from "../types";
 
 @Component({
   selector: '[user-list]',
@@ -19,7 +15,7 @@ export class UserListComponent {
   parent: DashboardComponent;
   formMode: boolean = false;
 
-  constructor(@Host() parent: DashboardComponent) {
+  constructor(@Host() parent: DashboardComponent, private userService: UserService) {
     this.parent = parent;
   }
 
@@ -27,7 +23,15 @@ export class UserListComponent {
     this.formMode = !this.formMode;
   }
 
-  edit() {
-    this.parent.editUser(this.user);
+  editUser() {
+    this.userService.updateUser(this.user).subscribe(() => {
+      this.parent.getUsers();
+    });
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe(() => {
+      this.parent.getUsers();
+    });
   }
 }

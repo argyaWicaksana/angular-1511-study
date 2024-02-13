@@ -13,7 +13,7 @@
         </select>
     </td>
     <td>
-        <button type="button" class="btn btn-primary me-3" (click)="edit()">Save</button>
+        <button type="button" class="btn btn-primary me-3" (click)="editUser()">Save</button>
         <button type="button" class="btn btn-outline-primary" (click)="toggleFormMode()">Cancel</button>
     </td>
 </ng-container>
@@ -25,6 +25,6 @@
     <td>{{ user.role }}</td>
     <td>
         <button type="button" class="btn btn-primary me-3" (click)="toggleFormMode()">Edit</button>
-        <button type="button" class="btn btn-danger" (click)="parent.deleteUser(user.id)">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
     </td>
 </ng-template>
