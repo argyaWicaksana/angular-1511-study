@@ -2,10 +2,10 @@
   <nav class="navbar bg-body-tertiary">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-primary">Otsuka</span>
+      <button (click)="logout()" class="btn btn-danger" *ngIf="authService.isAuthenticated()">Logout</button>
     </div>
   </nav>
   <div class="container-sm py-3">
     <router-outlet></router-outlet>
   </div>
-  <!-- <app-item-list></app-item-list> -->
 </div>

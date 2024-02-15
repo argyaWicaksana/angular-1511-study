@@ -10,7 +10,6 @@ import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
 import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './alert/alert.component';
-import { UserListComponent } from './user-list/user-list.component';
 import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { JwtModule } from '@auth0/angular-jwt';
     ModalComponent,
     AuthComponent,
     AlertComponent,
-    UserListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,23 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { ModalComponent } from "./modal/modal.component";
 import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-    {path: '', component: AuthComponent},
-    {path: 'dashboard', component: DashboardComponent},
+    {
+        path: '',
+        component: AuthComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: {
+            loginRequired: true
+        }
+    },
 ];
 
 @NgModule({
@@ -14,4 +25,4 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

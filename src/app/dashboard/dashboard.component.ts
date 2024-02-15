@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  deleteUser(id: number): void {
+    this.userService.deleteUser(id).subscribe(() => this.getUsers());
+  }
+
   ngOnInit() {
     this.getUsers();
   }

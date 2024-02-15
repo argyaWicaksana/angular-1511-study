@@ -13,9 +13,9 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="showErrorCss('email')" />
             </div>
-            <div class="mb-3">
+            <div class="mb-3" *ngIf="user === null">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="showErrorCss('password')" />
+                <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="showErrorCss('password')" autocomplete="on" />
             </div>
             <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
@@ -31,4 +31,6 @@
     </form>
 </ng-template>
 
-<button type="button" class="btn btn-success px-5" (click)="open(content)">Create</button>
+<span (click)="open(content)">
+    <ng-content></ng-content>
+</span>

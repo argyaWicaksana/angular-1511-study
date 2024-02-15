@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-end pb-3">
-        <app-modal></app-modal>
+        <app-modal>
+            <button type="button" class="btn btn-success">Create</button>
+        </app-modal>
     </div>
     <table class="table table-striped">
         <thead>
@@ -13,7 +15,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr user-list *ngFor="let user of users; let i = index" [index]="i" [user]="user"></tr>
+            <tr *ngFor="let user of users; let i = index">
+                <td>{{ i+1 }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <app-modal [user]="user">
+                        <button type="button" class="btn btn-primary me-3">Edit</button>
+                    </app-modal>
+                    <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 interface Alert {
   type: string;
@@ -15,9 +16,9 @@ interface Alert {
 })
 export class AuthComponent {
   loginFg!: FormGroup;
-  showAlert:boolean = false;
-  alert!: Alert;
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+  // showAlert: boolean = false;
+  // alert!: Alert;
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginFg = this.fb.group({
@@ -28,18 +29,8 @@ export class AuthComponent {
 
   onSubmit(): void {
     if (this.loginFg.valid) {
-      this.http.post('http://localhost:3000/auth/login', this.loginFg.value).subscribe((response: any) => {
-        localStorage.setItem('accessToken', response.accessToken);
-        this.router.navigate(['dashboard']);
-      }, (error: any) => {
-        this.alert = {
-          type: 'danger',
-          message: error.error.message,
-        }
-        this.showAlert = true;
-        console.log(error);
-        // console.log(error.error.message);
-      })
+      const { username, password } = this.loginFg.value;
+      this.authService.login(username, password);
     }
   }
 }
